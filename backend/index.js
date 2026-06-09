@@ -151,5 +151,24 @@ app.delete('/tasks/:id', protect, async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
+// Add time spent to a task
+app.patch('/tasks/:id/time', protect, async (req, res) => {
+  const id = Number(req.params.id)
+  const { minutes } = req.body
+
+  try {
+    const task = await prisma.task.update({
+      where: { id },
+      data: {
+        timeSpent: {
+          increment: minutes
+        }
+      }
+    })
+    res.json(task)
+  } catch (error) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
 
 app.listen(3000, () => console.log('Orbitask API running on port 3000 🪐'))

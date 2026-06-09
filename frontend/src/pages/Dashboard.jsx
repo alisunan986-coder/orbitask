@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import PomodoroTimer from '../components/PomodoroTimer'
 
 function Dashboard() {
   const [tasks, setTasks] = useState([])
@@ -143,6 +144,18 @@ function Dashboard() {
           Add Task
         </button>
       </div>
+
+      <div style={{ margin: '32px auto', maxWidth: '600px', padding: '0 16px' }}>
+  <PomodoroTimer
+    tasks={tasks}
+    token={token}
+    onTimeLogged={fetchTasks}
+  />
+</div>
+
+        {/* Task List */}
+        <div style={styles.taskList}></div>
+
 
       {/* Task List */}
       <div style={styles.taskList}>
