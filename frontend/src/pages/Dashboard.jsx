@@ -65,12 +65,21 @@ function Dashboard() {
 }
 
   const handleDelete = async (id) => {
+  // optimistic update — remove instantly
+  const previousTasks = tasks
+  setTasks(tasks.filter(t => t.id !== id))
+
+  try {
     await fetch(`http://localhost:3000/tasks/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` }
     })
-    setTasks(tasks.filter(t => t.id !== id))
+  } catch (err) {
+    // rollback if failed
+    setTasks(previousTasks)
+    alert('Failed to delete task — please try again')
   }
+}
 
   const handleStatus = async (task) => {
     const nextStatus = task.status === 'todo' ? 'inprogress' : task.status === 'inprogress' ? 'done' : 'todo'
