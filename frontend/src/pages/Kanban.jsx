@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { useNavigate } from 'react-router-dom'
+import { io } from 'socket.io-client'
+
+
 
 const COLUMNS = [
   { id: 'todo', label: 'To Do' },
@@ -17,6 +20,7 @@ const priorityColor = {
 
 function Kanban() {
   const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -36,13 +40,13 @@ function Kanban() {
 }, [])
 
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:3000/tasks', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    const data = await res.json()
-    setTasks(data)
-  }
-
+  const res = await fetch('http://localhost:3000/tasks', {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  const data = await res.json()
+  setTasks(data)
+  setLoading(false)
+}
   const getTasksByStatus = (status) =>
     tasks.filter(t => t.status === status)
 
@@ -78,6 +82,12 @@ function Kanban() {
       fetchTasks()
     }
   }
+
+  if (loading) return (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', fontFamily: 'sans-serif', fontSize: '18px', color: '#666' }}>
+    Loading... 🪐
+  </div>
+)
 
   return (
     <div style={styles.container}>

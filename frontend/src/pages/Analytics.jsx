@@ -4,11 +4,14 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
 } from 'recharts'
+import { io } from 'socket.io-client'
+
 
 const COLORS = ['#5c4ff6', '#38a169', '#d69e2e', '#e53e3e']
 
 function Analytics() {
   const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
   const name = localStorage.getItem('name')
@@ -17,7 +20,7 @@ function Analytics() {
     if (!token) { navigate('/login'); return }
     fetchTasks()
   }, [])
-  
+
      useEffect(() => {
   const socket = io('http://localhost:3000')
 
@@ -28,13 +31,14 @@ function Analytics() {
   return () => socket.disconnect()
 }, [])
 
-  const fetchTasks = async () => {
-    const res = await fetch('http://localhost:3000/tasks', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    const data = await res.json()
-    setTasks(data)
-  }
+ const fetchTasks = async () => {
+  const res = await fetch('http://localhost:3000/tasks', {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  const data = await res.json()
+  setTasks(data)
+  setLoading(false)
+}
 
   // Tasks by status
   const statusData = [
@@ -63,6 +67,11 @@ function Analytics() {
   const totalFocusTime = tasks.reduce((acc, t) => acc + t.timeSpent, 0)
   const doneTasks = tasks.filter(t => t.status === 'done').length
   const totalTasks = tasks.length
+    if (loading) return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', fontFamily: 'sans-serif', fontSize: '18px', color: '#666' }}>
+        Loading... 🪐
+    </div>
+    )
 
   return (
     <div style={styles.container}>
