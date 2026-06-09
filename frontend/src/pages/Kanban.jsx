@@ -134,6 +134,13 @@ function Kanban() {
                             }}>
                               {task.priority}
                             </span>
+                            {task.tags && task.tags.length > 0 && (
+                        <div style={styles.tags}>
+                          {task.tags.map((tag, i) => (
+                            <span key={i} style={styles.tag}>{tag}</span>
+                          ))}
+                        </div>
+                      )}
                           </div>
                         )}
                       </Draggable>
@@ -245,7 +252,21 @@ const styles = {
     fontSize: '11px',
     fontWeight: '600',
     textTransform: 'uppercase'
-  }
+  },
+  tags: {
+  display: 'flex',
+  gap: '4px',
+  flexWrap: 'wrap',
+  marginTop: '6px'
+},
+tag: {
+  backgroundColor: '#eef0ff',
+  color: '#5c4ff6',
+  padding: '2px 6px',
+  borderRadius: '10px',
+  fontSize: '10px',
+  fontWeight: '500'
+}
 }
 
 export default Kanban
