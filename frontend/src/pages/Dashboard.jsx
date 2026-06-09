@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PomodoroTimer from '../components/PomodoroTimer'
+import { io } from 'socket.io-client'
 
 function Dashboard() {
   const [tasks, setTasks] = useState([])
@@ -20,6 +21,15 @@ function Dashboard() {
     }
     fetchTasks()
   }, [])
+    useEffect(() => {
+  const socket = io('http://localhost:3000')
+
+  socket.on('taskUpdated', () => {
+    fetchTasks()
+  })
+
+  return () => socket.disconnect()
+}, [])
 
   const fetchTasks = async () => {
     const res = await fetch('http://localhost:3000/tasks', {

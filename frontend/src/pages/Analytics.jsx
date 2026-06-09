@@ -17,6 +17,16 @@ function Analytics() {
     if (!token) { navigate('/login'); return }
     fetchTasks()
   }, [])
+  
+     useEffect(() => {
+  const socket = io('http://localhost:3000')
+
+  socket.on('taskUpdated', () => {
+    fetchTasks()
+  })
+
+  return () => socket.disconnect()
+}, [])
 
   const fetchTasks = async () => {
     const res = await fetch('http://localhost:3000/tasks', {

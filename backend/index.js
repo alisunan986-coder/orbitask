@@ -118,6 +118,7 @@ app.post('/tasks', protect, async (req, res) => {
         userId: req.userId
       }
     })
+    req.app.get('io').emit('taskUpdated')
     res.status(201).json(task)
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' })
@@ -134,6 +135,7 @@ app.put('/tasks/:id', protect, async (req, res) => {
       where: { id },
       data: { title, description, status, priority, tags }
     })
+    req.app.get('io').emit('taskUpdated')
     res.json(task)
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' })
@@ -171,4 +173,26 @@ app.patch('/tasks/:id/time', protect, async (req, res) => {
   }
 })
 
-app.listen(3000, () => console.log('Orbitask API running on port 3000 🪐'))
+const http = require('http')
+const { Server } = require('socket.io')
+
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+  }
+})
+
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id)
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id)
+  })
+})
+
+// Make io accessible in routes
+app.set('io', io)
+
+server.listen(3000, () => console.log('Orbitask API running on port 3000 🪐'))
