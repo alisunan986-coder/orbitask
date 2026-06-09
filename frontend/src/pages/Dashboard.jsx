@@ -106,6 +106,9 @@ function Dashboard() {
                   <button style={styles.navBtn} onClick={() => navigate('/kanban')}>
           Kanban View
         </button>
+        <button style={styles.navBtn} onClick={() => navigate('/analytics')}>
+  Analytics
+</button>
           <button style={styles.logoutBtn} onClick={handleLogout}>Logout</button>
         </div>
       </div>

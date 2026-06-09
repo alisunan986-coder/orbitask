@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Kanban from './pages/Kanban'
+import Analytics from './pages/Analytics'
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem('token')
@@ -27,6 +28,11 @@ function App() {
             <Dashboard />
           </PrivateRoute>
         } />
+                      <Route path="/analytics" element={
+                <PrivateRoute>
+                  <Analytics />
+                </PrivateRoute>
+              } />
       </Routes>
     </BrowserRouter>
   )
