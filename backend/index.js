@@ -8,7 +8,9 @@ const { PrismaClient } = require('@prisma/client')
 const app = express()
 const prisma = new PrismaClient()
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174']
+}))
 app.use(express.json())
 
 // Health check
@@ -179,7 +181,7 @@ const { Server } = require('socket.io')
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
   }
 })

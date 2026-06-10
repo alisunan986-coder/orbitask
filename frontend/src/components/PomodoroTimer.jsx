@@ -14,25 +14,46 @@ function PomodoroTimer({ tasks, token, onTimeLogged }) {
   const [sessions, setSessions] = useState(0)
   const intervalRef = useRef(null)
 
-  useEffect(() => {
-    if (isRunning) {
-      intervalRef.current = setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            clearInterval(intervalRef.current)
-            setIsRunning(false)
-            handleSessionComplete()
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
-    } else {
-      clearInterval(intervalRef.current)
-    }
+/// 1. Timer countdown
+useEffect(() => {
+  if (!isRunning) {
+    clearInterval(intervalRef.current)
+    return
+  }
+  intervalRef.current = setInterval(() => {
+    setTimeLeft(prev => {
+      if (prev <= 1) {
+        clearInterval(intervalRef.current)
+        setIsRunning(false)
+        handleSessionComplete()
+        return 0
+      }
+      return prev - 1
+    })
+  }, 1000)
+  return () => clearInterval(intervalRef.current)
+}, [isRunning])
 
-    return () => clearInterval(intervalRef.current)
-  }, [isRunning])
+// 2. Logging every minute
+useEffect(() => {
+  if (!isRunning || !selectedTaskId || mode !== 'focus') return
+  const logInterval = setInterval(async () => {
+    try {
+      await fetch(`http://localhost:3000/tasks/${selectedTaskId}/time`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ minutes: 1 })
+      })
+      onTimeLogged()
+    } catch (err) {
+      console.error('Failed to log time', err)
+    }
+  }, 60000)
+  return () => clearInterval(logInterval)
+}, [isRunning, selectedTaskId, mode])
 
   const handleSessionComplete = async () => {
     if (mode === 'focus') {
@@ -83,7 +104,7 @@ function PomodoroTimer({ tasks, token, onTimeLogged }) {
             key={m}
             style={{
               ...styles.modeBtn,
-              backgroundColor: mode === m ? '#5c4ff6' : 'transparent',
+              backgroundColor: mode === m ? '#f5a623' : 'transparent',
               color: mode === m ? '#fff' : '#666'
             }}
             onClick={() => switchMode(m)}
@@ -100,7 +121,7 @@ function PomodoroTimer({ tasks, token, onTimeLogged }) {
           <circle
             cx="80" cy="80" r="70"
             fill="none"
-            stroke="#5c4ff6"
+            stroke="#f5a623"
             strokeWidth="8"
             strokeDasharray={`${2 * Math.PI * 70}`}
             strokeDashoffset={`${2 * Math.PI * 70 * (1 - progress / 100)}`}
@@ -134,37 +155,52 @@ function PomodoroTimer({ tasks, token, onTimeLogged }) {
         >
           {isRunning ? '⏸ Pause' : '▶ Start'}
         </button>
-        <button
-          style={styles.resetBtn}
-          onClick={() => {
-            setIsRunning(false)
-            setTimeLeft(MODES[mode])
-          }}
-        >
-          ↺ Reset
-        </button>
+       <button
+  style={styles.resetBtn}
+  onClick={async () => {
+    if (isRunning || timeLeft < MODES[mode]) {
+      const minutesSpent = Math.floor((MODES[mode] - timeLeft) / 60)
+
+      if (minutesSpent > 0 && selectedTaskId && mode === 'focus') {
+        await fetch(`http://localhost:3000/tasks/${selectedTaskId}/time`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ minutes: minutesSpent })
+        })
+        onTimeLogged()
+      }
+    }
+    setIsRunning(false)
+    setTimeLeft(MODES[mode])
+  }}
+>
+  ↺ Reset
+</button>
       </div>
 
       <p style={styles.sessions}>🔥 {sessions} sessions completed today</p>
     </div>
   )
 }
-
 const styles = {
   container: {
-    backgroundColor: '#fff',
-    borderRadius: '16px',
-    padding: '24px',
+    backgroundColor: '#ffffff',
+    borderRadius: '20px',
+    padding: '28px',
     boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+    border: '1px solid #e8e0d0',
     maxWidth: '360px',
     margin: '0 auto',
     textAlign: 'center'
   },
   title: {
     fontSize: '18px',
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: '16px',
-    color: '#333'
+    color: '#1a1a1a'
   },
   modes: {
     display: 'flex',
@@ -173,12 +209,13 @@ const styles = {
     marginBottom: '20px'
   },
   modeBtn: {
-    padding: '6px 12px',
-    border: '1px solid #e0e0e0',
+    padding: '6px 14px',
+    border: '1.5px solid #e8e0d0',
     borderRadius: '20px',
     cursor: 'pointer',
     fontSize: '12px',
-    fontWeight: '500'
+    fontWeight: '600',
+    transition: 'all 0.2s'
   },
   timerWrapper: {
     position: 'relative',
@@ -198,16 +235,18 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     fontSize: '32px',
     fontWeight: '700',
-    color: '#333'
+    color: '#1a1a1a'
   },
   select: {
     width: '100%',
-    padding: '10px',
-    borderRadius: '8px',
-    border: '1px solid #e0e0e0',
+    padding: '10px 14px',
+    borderRadius: '10px',
+    border: '1.5px solid #e8e0d0',
     fontSize: '13px',
     marginBottom: '16px',
-    outline: 'none'
+    outline: 'none',
+    backgroundColor: '#fffdf7',
+    color: '#1a1a1a'
   },
   controls: {
     display: 'flex',
@@ -216,28 +255,29 @@ const styles = {
     marginBottom: '12px'
   },
   mainBtn: {
-    padding: '10px 24px',
-    backgroundColor: '#5c4ff6',
+    padding: '10px 28px',
+    backgroundColor: '#f5a623',
     color: '#fff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '10px',
     fontSize: '14px',
     cursor: 'pointer',
-    fontWeight: '500'
+    fontWeight: '700'
   },
   resetBtn: {
     padding: '10px 16px',
     backgroundColor: 'transparent',
-    border: '1px solid #e0e0e0',
-    borderRadius: '8px',
+    border: '1.5px solid #e8e0d0',
+    borderRadius: '10px',
     fontSize: '14px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    color: '#888'
   },
   sessions: {
     fontSize: '13px',
     color: '#888',
-    margin: 0
+    margin: 0,
+    fontWeight: '500'
   }
 }
-
 export default PomodoroTimer

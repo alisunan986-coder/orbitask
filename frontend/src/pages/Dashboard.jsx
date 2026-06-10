@@ -220,72 +220,88 @@ function Dashboard() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f5f4f0',
-    fontFamily: 'sans-serif',
-    paddingBottom: '40px'
+    backgroundColor: '#fef9ec',
+    fontFamily: 'inherit'
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     padding: '16px 32px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
+    boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+    border: '1px solid #e8e0d0'
   },
   logo: {
-    fontSize: '20px',
-    margin: 0
+    fontSize: '22px',
+    margin: 0,
+    fontWeight: '700',
+    color: '#1a1a1a'
   },
   headerRight: {
     display: 'flex',
     alignItems: 'center',
-    gap: '16px'
+    gap: '12px'
   },
   welcome: {
     fontSize: '14px',
-    color: '#666'
+    color: '#888'
+  },
+  navBtn: {
+    padding: '8px 16px',
+    backgroundColor: '#f5a623',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    fontWeight: '600'
   },
   logoutBtn: {
     padding: '8px 16px',
     backgroundColor: 'transparent',
-    border: '1px solid #e0e0e0',
+    border: '1.5px solid #e8e0d0',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px'
+    fontSize: '14px',
+    color: '#888'
   },
   form: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     margin: '32px auto',
-    padding: '24px',
-    borderRadius: '16px',
+    padding: '28px',
+    borderRadius: '20px',
     maxWidth: '600px',
-    boxShadow: '0 4px 24px rgba(0,0,0,0.06)'
+    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+    border: '1px solid #e8e0d0'
   },
   formTitle: {
     fontSize: '16px',
-    fontWeight: '500',
+    fontWeight: '600',
     marginBottom: '16px',
-    color: '#333'
+    color: '#1a1a1a'
   },
   input: {
     width: '100%',
-    padding: '12px',
+    padding: '12px 16px',
     marginBottom: '12px',
-    borderRadius: '8px',
-    border: '1px solid #e0e0e0',
+    borderRadius: '10px',
+    border: '1.5px solid #e8e0d0',
     fontSize: '15px',
     boxSizing: 'border-box',
     outline: 'none',
-    backgroundColor: '#fff'
+    backgroundColor: '#fffdf7',
+    color: '#1a1a1a'
   },
   button: {
     width: '100%',
-    padding: '12px',
-    backgroundColor: '#5c4ff6',
+    padding: '13px',
+    backgroundColor: '#f5a623',
     color: '#fff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '10px',
     fontSize: '15px',
+    fontWeight: '600',
     cursor: 'pointer'
   },
   taskList: {
@@ -295,15 +311,17 @@ const styles = {
   },
   empty: {
     textAlign: 'center',
-    color: '#999',
-    marginTop: '40px'
+    color: '#aaa',
+    marginTop: '48px',
+    fontSize: '15px'
   },
   taskCard: {
-    backgroundColor: '#fff',
-    padding: '16px 20px',
-    borderRadius: '12px',
+    backgroundColor: '#ffffff',
+    padding: '18px 20px',
+    borderRadius: '14px',
     marginBottom: '12px',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.05)'
+    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+    border: '1px solid #e8e0d0'
   },
   taskTop: {
     display: 'flex',
@@ -312,18 +330,21 @@ const styles = {
   },
   taskTitle: {
     fontSize: '16px',
-    fontWeight: '500',
+    fontWeight: '600',
     margin: 0,
-    color: '#333'
+    color: '#1a1a1a'
   },
   priority: {
-    fontSize: '12px',
-    fontWeight: '500',
-    textTransform: 'uppercase'
+    fontSize: '11px',
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    padding: '3px 10px',
+    borderRadius: '20px',
+    backgroundColor: '#fff3d0'
   },
   taskDesc: {
     fontSize: '14px',
-    color: '#666',
+    color: '#888',
     margin: '8px 0 0'
   },
   taskBottom: {
@@ -332,32 +353,39 @@ const styles = {
     marginTop: '12px'
   },
   statusBtn: {
-    padding: '6px 12px',
-    backgroundColor: '#eef0ff',
-    color: '#5c4ff6',
+    padding: '6px 14px',
+    backgroundColor: '#fff3d0',
+    color: '#f5a623',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '8px',
     fontSize: '13px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    fontWeight: '600'
   },
   deleteBtn: {
-    padding: '6px 12px',
+    padding: '6px 14px',
     backgroundColor: '#fff5f5',
     color: '#e53e3e',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '8px',
     fontSize: '13px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    fontWeight: '600'
   },
-  navBtn: {
-  padding: '8px 16px',
-  backgroundColor: '#5c4ff6',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '8px',
-  cursor: 'pointer',
-  fontSize: '14px'
-}
+  tags: {
+    display: 'flex',
+    gap: '6px',
+    flexWrap: 'wrap',
+    marginTop: '8px'
+  },
+  tag: {
+    backgroundColor: '#fff3d0',
+    color: '#f5a623',
+    padding: '2px 10px',
+    borderRadius: '12px',
+    fontSize: '11px',
+    fontWeight: '600'
+  }
 }
 
 export default Dashboard

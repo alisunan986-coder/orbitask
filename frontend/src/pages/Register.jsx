@@ -74,67 +74,80 @@ function Register() {
     </div>
   )
 }
-
 const styles = {
   container: {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f4f0',
-    fontFamily: 'sans-serif'
+    backgroundColor: '#fef9ec',
+    fontFamily: 'inherit'
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     padding: '40px',
-    borderRadius: '16px',
+    borderRadius: '20px',
     width: '100%',
     maxWidth: '400px',
-    boxShadow: '0 4px 24px rgba(0,0,0,0.08)'
+    boxShadow: '0 4px 32px rgba(0,0,0,0.08)',
+    border: '1px solid #e8e0d0'
   },
   logo: {
     textAlign: 'center',
-    fontSize: '24px',
+    fontSize: '28px',
     marginBottom: '8px'
   },
   title: {
     textAlign: 'center',
     fontSize: '18px',
-    fontWeight: '500',
-    color: '#333',
-    marginBottom: '24px'
+    fontWeight: '600',
+    color: '#1a1a1a',
+    marginBottom: '8px'
+  },
+  subtitle: {
+    textAlign: 'center',
+    fontSize: '14px',
+    color: '#888',
+    marginBottom: '28px'
   },
   input: {
     width: '100%',
-    padding: '12px',
+    padding: '12px 16px',
     marginBottom: '12px',
-    borderRadius: '8px',
-    border: '1px solid #e0e0e0',
+    borderRadius: '10px',
+    border: '1.5px solid #e8e0d0',
     fontSize: '15px',
     boxSizing: 'border-box',
-    outline: 'none'
+    outline: 'none',
+    backgroundColor: '#fffdf7',
+    color: '#1a1a1a'
   },
   button: {
     width: '100%',
-    padding: '12px',
-    backgroundColor: '#5c4ff6',
+    padding: '13px',
+    backgroundColor: '#f5a623',
     color: '#fff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '10px',
     fontSize: '15px',
+    fontWeight: '600',
     cursor: 'pointer',
     marginTop: '8px'
   },
   error: {
     color: '#e53e3e',
-    fontSize: '14px',
-    marginBottom: '12px'
+    fontSize: '13px',
+    marginBottom: '12px',
+    backgroundColor: '#fff5f5',
+    padding: '10px 14px',
+    borderRadius: '8px',
+    border: '1px solid #fed7d7'
   },
   link: {
     textAlign: 'center',
-    marginTop: '16px',
+    marginTop: '20px',
     fontSize: '14px',
-    color: '#666'
+    color: '#888'
   }
 }
 

@@ -180,88 +180,93 @@ function Kanban() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f5f4f0',
-    fontFamily: 'sans-serif'
+    backgroundColor: '#fef9ec',
+    fontFamily: 'inherit'
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     padding: '16px 32px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
+    boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+    border: '1px solid #e8e0d0'
   },
-  logo: { fontSize: '20px', margin: 0 },
+  logo: { fontSize: '22px', margin: 0, fontWeight: '700', color: '#1a1a1a' },
   headerRight: { display: 'flex', gap: '12px', alignItems: 'center' },
   navBtn: {
     padding: '8px 16px',
-    backgroundColor: '#5c4ff6',
+    backgroundColor: '#f5a623',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px'
+    fontSize: '14px',
+    fontWeight: '600'
   },
   logoutBtn: {
     padding: '8px 16px',
     backgroundColor: 'transparent',
-    border: '1px solid #e0e0e0',
+    border: '1.5px solid #e8e0d0',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px'
+    fontSize: '14px',
+    color: '#888'
   },
   board: {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
     gap: '16px',
-    padding: '24px',
+    padding: '28px',
     maxWidth: '1400px',
     margin: '0 auto'
   },
   column: {
-    backgroundColor: '#fff',
-    borderRadius: '12px',
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
     padding: '16px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+    border: '1px solid #e8e0d0'
   },
   columnHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '12px'
+    marginBottom: '14px'
   },
   columnTitle: {
     fontSize: '14px',
-    fontWeight: '600',
+    fontWeight: '700',
     margin: 0,
-    color: '#333'
+    color: '#1a1a1a'
   },
   count: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff3d0',
+    color: '#f5a623',
     borderRadius: '12px',
-    padding: '2px 8px',
+    padding: '2px 10px',
     fontSize: '12px',
-    color: '#666'
+    fontWeight: '700'
   },
   droppable: {
     minHeight: '200px',
-    borderRadius: '8px',
+    borderRadius: '10px',
     padding: '8px',
     transition: 'background-color 0.2s'
   },
   card: {
-    backgroundColor: '#fff',
-    border: '1px solid #e8e8e8',
-    borderRadius: '8px',
-    padding: '12px',
+    backgroundColor: '#fffdf7',
+    border: '1.5px solid #e8e0d0',
+    borderRadius: '10px',
+    padding: '14px',
     marginBottom: '8px',
     cursor: 'grab'
   },
   cardTitle: {
     fontSize: '14px',
-    fontWeight: '500',
+    fontWeight: '600',
     margin: '0 0 4px',
-    color: '#333'
+    color: '#1a1a1a'
   },
   cardDesc: {
     fontSize: '12px',
@@ -270,23 +275,23 @@ const styles = {
   },
   priority: {
     fontSize: '11px',
-    fontWeight: '600',
+    fontWeight: '700',
     textTransform: 'uppercase'
   },
   tags: {
-  display: 'flex',
-  gap: '4px',
-  flexWrap: 'wrap',
-  marginTop: '6px'
-},
-tag: {
-  backgroundColor: '#eef0ff',
-  color: '#5c4ff6',
-  padding: '2px 6px',
-  borderRadius: '10px',
-  fontSize: '10px',
-  fontWeight: '500'
-}
+    display: 'flex',
+    gap: '4px',
+    flexWrap: 'wrap',
+    marginTop: '6px'
+  },
+  tag: {
+    backgroundColor: '#fff3d0',
+    color: '#f5a623',
+    padding: '2px 8px',
+    borderRadius: '10px',
+    fontSize: '10px',
+    fontWeight: '600'
+  }
 }
 
 export default Kanban

@@ -179,35 +179,38 @@ function Analytics() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f5f4f0',
-    fontFamily: 'sans-serif'
+    backgroundColor: '#fef9ec',
+    fontFamily: 'inherit'
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     padding: '16px 32px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
+    boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+    border: '1px solid #e8e0d0'
   },
-  logo: { fontSize: '20px', margin: 0 },
+  logo: { fontSize: '22px', margin: 0, fontWeight: '700', color: '#1a1a1a' },
   headerRight: { display: 'flex', gap: '12px', alignItems: 'center' },
   navBtn: {
     padding: '8px 16px',
-    backgroundColor: '#5c4ff6',
+    backgroundColor: '#f5a623',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px'
+    fontSize: '14px',
+    fontWeight: '600'
   },
   logoutBtn: {
     padding: '8px 16px',
     backgroundColor: 'transparent',
-    border: '1px solid #e0e0e0',
+    border: '1.5px solid #e8e0d0',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px'
+    fontSize: '14px',
+    color: '#888'
   },
   content: {
     maxWidth: '1100px',
@@ -216,9 +219,9 @@ const styles = {
   },
   pageTitle: {
     fontSize: '22px',
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: '24px',
-    color: '#333'
+    color: '#1a1a1a'
   },
   summaryGrid: {
     display: 'grid',
@@ -227,22 +230,24 @@ const styles = {
     marginBottom: '24px'
   },
   summaryCard: {
-    backgroundColor: '#fff',
-    borderRadius: '12px',
-    padding: '20px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    padding: '24px',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+    border: '1px solid #e8e0d0',
     textAlign: 'center'
   },
   summaryLabel: {
     fontSize: '13px',
     color: '#888',
-    margin: '0 0 8px'
+    margin: '0 0 8px',
+    fontWeight: '500'
   },
   summaryValue: {
-    fontSize: '28px',
+    fontSize: '32px',
     fontWeight: '700',
     margin: 0,
-    color: '#333'
+    color: '#1a1a1a'
   },
   chartsGrid: {
     display: 'grid',
@@ -250,21 +255,23 @@ const styles = {
     gap: '16px'
   },
   chartCard: {
-    backgroundColor: '#fff',
-    borderRadius: '12px',
-    padding: '20px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    padding: '24px',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+    border: '1px solid #e8e0d0'
   },
   chartTitle: {
     fontSize: '15px',
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: '16px',
-    color: '#333'
+    color: '#1a1a1a'
   },
   empty: {
     textAlign: 'center',
-    color: '#999',
-    padding: '40px 0'
+    color: '#aaa',
+    padding: '40px 0',
+    fontSize: '14px'
   }
 }
 
